@@ -18,6 +18,8 @@ class Circle(Figure):
     def perimeter(self):
         return self.__class__.perimeter_calculation(self.radius, circle=True)
 
-
     def __repr__(self):
         return super().__repr__() + f"(radius={self.radius})"
+
+
+c = Circle(2)

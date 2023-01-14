@@ -15,9 +15,64 @@ class TestCircle:
             (4, 4)
         ]
     )
-    def test_circle_radius(self, radius_value, expect_value):
+    def test_circle_right_radius(self, radius_value, expect_value):
         c = Circle(radius=radius_value)
         assert c.radius == expect_value
+
+    @pytest.mark.parametrize(
+        "_radius",
+        [0, -1]
+    )
+    def test_circle_wrong_radius(self, _radius):
+        match_regex = r"Value must be a positive integer or float. .* is wrong."
+        with pytest.raises(ValueError, match=match_regex):
+            Circle(_radius)
+
+    def test_circle_repr(self, default_circle):
+        assert repr(default_circle) == "Circle(radius=2)"
+
+    def test_circle_name(self, default_circle):
+        assert default_circle.name == "Circle"
+
+    @pytest.mark.parametrize(
+        "_radius, _area",
+        [
+            (1, 3.14),
+            (5, 78.54),
+            (20, 1256.64)
+        ]
+    )
+    def test_circle_area(self, _radius, _area):
+        c = Circle(_radius)
+        assert c.area == _area
+
+    def test_circle_wrong_area(self, default_circle):
+        assert default_circle.area != 12
+
+    @pytest.mark.parametrize(
+        "_radius, _perimeter",
+        [
+            (1, 6.28),
+            (5, 31.42),
+            (20, 125.66)
+        ]
+    )
+    def test_circle_right_perimeter(self, _perimeter, _radius):
+        c = Circle(_radius)
+        assert c.perimeter == _perimeter
+
+    def test_circle_wrong_perimeter(self, default_circle):
+        assert default_circle.perimeter != 2
+
+    def test_circle_add_area(self, default_triangle, default_circle, default_rectangle, default_square):
+        assert default_circle.add_area(default_triangle) == 13.54
+        assert default_circle.add_area(default_rectangle) == 18.57
+        assert default_circle.add_area(default_square) == 16.57
+
+    def test_circle_add_aredefault_circlea_error(self, default_circle):
+        with pytest.raises(ValueError) as err:
+            default_circle.add_area(3)
+        assert "Variable must be a type 'Figure'" == str(err.value)
 
 
 class TestTriangle:
@@ -39,7 +94,7 @@ class TestTriangle:
             (2, 3, 10),
         ]
     )
-    def test_false_triangle(self, _side_a, _side_b, _side_c):
+    def test_wrong_triangle(self, _side_a, _side_b, _side_c):
         with pytest.raises(ValueError) as err:
             Triangle(_side_a, _side_b, _side_c)
         assert "(sum of another two sides)" in str(err.value)
@@ -55,7 +110,7 @@ class TestTriangle:
             (2, 3, -1)
         ]
     )
-    def test_triange_false_values(self, _side_a, _side_b, _side_c):
+    def test_triange_wrong_values(self, _side_a, _side_b, _side_c):
         match_regex = r"Value must be a positive integer or float. .* is wrong."
         with pytest.raises(ValueError, match=match_regex):
             Triangle(_side_a, _side_b, _side_c)
@@ -87,7 +142,7 @@ class TestTriangle:
 
         ]
     )
-    def test_triangle_false_area(self, _side_a, _side_b, _side_c, _area):
+    def test_triangle_wrong_area(self, _side_a, _side_b, _side_c, _area):
         tr = Triangle(_side_a, _side_b, _side_c)
         assert tr.area != _area
 
@@ -113,7 +168,7 @@ class TestTriangle:
 
         ]
     )
-    def test_triangle_false_perimeter(self, _side_a, _side_b, _side_c, _perimeter):
+    def test_triangle_wrong_perimeter(self, _side_a, _side_b, _side_c, _perimeter):
         tr = Triangle(_side_a, _side_b, _side_c)
         assert tr.perimeter != _perimeter
 
