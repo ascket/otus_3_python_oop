@@ -1,4 +1,4 @@
-from figure import Figure
+from src.figure import Figure
 from typing import Union
 
 
@@ -30,11 +30,3 @@ class Triangle(Figure):
 
     def __repr__(self):
         return super().__repr__() + f"(side_a={self.side_a}, side_b={self.side_b}, side_c={self.side_c})"
-
-
-if __name__ == "__main__":
-    tr = Triangle(5, 5, 2)
-    print(tr)
-    print(tr.perimeter)
-    print(tr.area)
-    print(tr.name)

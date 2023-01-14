@@ -1,4 +1,4 @@
-from figure import Figure
+from src.figure import Figure
 from typing import Union
 
 
@@ -17,10 +17,3 @@ class Square(Figure):
 
     def __repr__(self):
         return super().__repr__() + f"(sides={self.sides})"
-
-
-if __name__ == "__main__":
-    s = Square(2)
-    print(s)
-    print(s.perimeter)
-    print(s.area)
