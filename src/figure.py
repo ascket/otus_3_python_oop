@@ -35,8 +35,9 @@ class Figure():
 
     def add_area(self, figure):
         if not isinstance(figure, Figure):
-            raise ValueError(f"Figure must be a type 'Figure'")
-        return figure.area + self.area
+            raise ValueError("Variable must be a type 'Figure'")
+        area = figure.area + self.area
+        return round(area, 2)
 
     def __repr__(self):
         return self.name
